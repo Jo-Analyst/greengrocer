@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
+import 'package:greengrocer/src/config/custom_colors.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -14,14 +15,14 @@ class SignInScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text.rich(
+                Text.rich(
                   TextSpan(
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 40,
                     ),
                     children: [
                       // nome do app
-                      TextSpan(
+                      const TextSpan(
                         text: "Green",
                         style: TextStyle(
                           color: Colors.white,
@@ -31,7 +32,7 @@ class SignInScreen extends StatelessWidget {
                       TextSpan(
                         text: "grocer",
                         style: TextStyle(
-                          color: Colors.red,
+                          color: CustomColors.customContrastColor,
                         ),
                       ),
                     ],
@@ -110,7 +111,10 @@ class SignInScreen extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text("Esqueceu a Senha?"),
+                    child: Text(
+                      "Esqueceu a Senha?",
+                      style: TextStyle(color: CustomColors.customContrastColor),
+                    ),
                   ),
                 ),
                 // Divisores
