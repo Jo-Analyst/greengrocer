@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
 
@@ -10,10 +11,56 @@ class SignInScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              color: Colors.red,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text.rich(
+                  TextSpan(
+                    style: TextStyle(
+                      fontSize: 40,
+                    ),
+                    children: [
+                      // nome do app
+                      TextSpan(
+                        text: "Green",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "grocer",
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // categoria
+                SizedBox(
+                  height: 30,
+                  child: DefaultTextStyle(
+                    style: const TextStyle(fontSize: 25),
+                    child: AnimatedTextKit(
+                      pause: Duration.zero,
+                      repeatForever: true,
+                      animatedTexts: [
+                        FadeAnimatedText("Frutas"),
+                        FadeAnimatedText("Legumes"),
+                        FadeAnimatedText("Carnes"),
+                        FadeAnimatedText("Cereais"),
+                        FadeAnimatedText("Laticineos"),
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
+
+          // Formulário
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 32,
@@ -28,9 +75,20 @@ class SignInScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const CustomTextField(icon: Icons.email, label: "Email"),
+                // Email
                 const CustomTextField(
-                    icon: Icons.lock, label: "Senha", isSecret: true),
+                  icon: Icons.email,
+                  label: "Email",
+                ),
+
+                // Senha
+                const CustomTextField(
+                  icon: Icons.lock,
+                  label: "Senha",
+                  isSecret: true,
+                ),
+
+                // Botão Entrar
                 SizedBox(
                   height: 50,
                   child: ElevatedButton(
@@ -46,6 +104,8 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                // Botão esqueceu a senha
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -53,6 +113,7 @@ class SignInScreen extends StatelessWidget {
                     child: const Text("Esqueceu a Senha?"),
                   ),
                 ),
+                // Divisores
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Row(
@@ -76,6 +137,8 @@ class SignInScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+
+                // Botão criar conta
                 SizedBox(
                   height: 50,
                   child: OutlinedButton(
