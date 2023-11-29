@@ -19,7 +19,18 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
           ),
-          Container(),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 42,
+              vertical: 40,
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(45),
+              ),
+            ),
+          ),
         ],
       ),
     );
