@@ -29,6 +29,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: TextFormField(
+        onTapOutside: (_) => FocusScope.of(context).unfocus(),
         obscureText: isObscure,
         decoration: InputDecoration(
           prefixIcon: Icon(widget.icon),
@@ -39,7 +40,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       isObscure = !isObscure;
                     });
                   },
-                  icon:  Icon(isObscure ? Icons.visibility : Icons.visibility_off),
+                  icon:
+                      Icon(isObscure ? Icons.visibility : Icons.visibility_off),
                 )
               : null,
           labelText: widget.label,
