@@ -11,9 +11,8 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
- 
   String selectedCategory = "Frutas";
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,9 +116,27 @@ class _HomeTabState extends State<HomeTab> {
               ),
               itemCount: app_data.categories.length,
             ),
-          )
+          ),
 
           // grid
+          Expanded(
+            child: GridView.builder(
+              physics:const BouncingScrollPhysics(),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 2,
+                childAspectRatio: 9 / 11.5
+              ),
+              itemCount: app_data.items.length,
+              itemBuilder: (_, index) {
+                return Container(
+                  color: Colors.red,
+                );
+              },
+            ),
+          )
         ],
       ),
     );
