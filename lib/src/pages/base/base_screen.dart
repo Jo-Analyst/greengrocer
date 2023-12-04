@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greengrocer/src/pages/cart/cart_tab.dart';
 import 'package:greengrocer/src/pages/home/home_tab.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -19,11 +20,11 @@ class _BaseScreenState extends State<BaseScreen> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-        const HomeTab(),
-        Container(color: Colors.yellow),
-        Container(color: Colors.orange),
-        Container(color: Colors.brown),
-      ],
+          const HomeTab(),
+          const CartTab(),
+          Container(color: Colors.orange),
+          Container(color: Colors.brown),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
