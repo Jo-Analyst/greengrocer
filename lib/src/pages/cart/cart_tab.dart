@@ -19,13 +19,43 @@ class _CartTabState extends State<CartTab> {
     });
   }
 
-  double cartTotalPrice(){
+  double cartTotalPrice() {
     double total = 0;
-    for (var item in app_data.cartItems){
+    for (var item in app_data.cartItems) {
       total += item.totalPrice();
     }
 
     return total;
+  }
+
+  Future<bool?> showOrderConfirmation() {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
+          ),
+          title: Text("Confirmação"),
+          content: Text("Deseja realmente concluir o pedido?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text("Não"),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18),
+                ),
+              ),
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text("Sim"),
+            )
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -41,9 +71,8 @@ class _CartTabState extends State<CartTab> {
               itemCount: app_data.cartItems.length,
               itemBuilder: (_, index) {
                 return CartTile(
-                  cartItem: app_data.cartItems[index],
-                  remove: removeItemFromCart
-                );
+                    cartItem: app_data.cartItems[index],
+                    remove: removeItemFromCart);
               },
             ),
           ),
@@ -87,7 +116,10 @@ class _CartTabState extends State<CartTab> {
                         ),
                         backgroundColor: CustomColors.customSwatchColor,
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        final confirm = await showOrderConfirmation();
+                        print(confirm);
+                      },
                       child: const Text(
                         "Concluir pedido",
                         style: TextStyle(fontSize: 18),
