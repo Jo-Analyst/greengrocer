@@ -36,8 +36,8 @@ class _CartTabState extends State<CartTab> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
-          title: Text("Confirmação"),
-          content: Text("Deseja realmente concluir o pedido?"),
+          title: const Text("Confirmação"),
+          content: const Text("Deseja realmente concluir o pedido?"),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
@@ -118,7 +118,6 @@ class _CartTabState extends State<CartTab> {
                       ),
                       onPressed: () async {
                         final confirm = await showOrderConfirmation();
-                        print(confirm);
                       },
                       child: const Text(
                         "Concluir pedido",
