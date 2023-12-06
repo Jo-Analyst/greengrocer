@@ -9,7 +9,7 @@ class UtilsServices {
 
   static String formateDateTime(DateTime dateTime) {
     initializeDateFormatting();
-    DateFormat dateFormat = DateFormat.yMMMMEEEEd("PT-BR");
+    DateFormat dateFormat = DateFormat.yMMMMEEEEd("PT-BR").add_Hms();
     return dateFormat.format(dateTime);
   }
 }
