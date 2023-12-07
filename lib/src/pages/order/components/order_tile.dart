@@ -11,10 +11,13 @@ class OrderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
+          initiallyExpanded: order.status == "pending_payment",
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -31,23 +34,25 @@ class OrderTile extends StatelessWidget {
           ),
           childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           children: [
-            SizedBox(
-              height: 150,
+            IntrinsicHeight(
               child: Row(
                 children: [
                   // Lista de Produtos
                   Expanded(
                     flex: 3,
-                    child: ListView(
-                      children: order.items.map((orderItem) {
-                        return _OrderItemWidget(
-                          orderItem: orderItem,
-                        );
-                      }).toList(),
+                    child: SizedBox(
+                      height: 150,
+                      child: ListView(
+                        children: order.items.map((orderItem) {
+                          return _OrderItemWidget(
+                            orderItem: orderItem,
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
 
-// Divisão
+                  // Divisão
                   VerticalDivider(
                     color: Colors.grey.shade300,
                     thickness: 2,
@@ -77,7 +82,6 @@ class OrderTile extends StatelessWidget {
 class _OrderItemWidget extends StatelessWidget {
   final CartItemModel orderItem;
   const _OrderItemWidget({
-    super.key,
     required this.orderItem,
   });
 
