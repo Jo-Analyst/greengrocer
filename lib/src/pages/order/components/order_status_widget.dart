@@ -4,7 +4,17 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 class OrderStatusWidget extends StatelessWidget {
   final String status;
   final bool isOverDue;
-  const OrderStatusWidget({
+  final Map<String, int> allStatus = {
+    "pending_payment": 0,
+    "refunded": 1,
+    "preparing_purchase": 3,
+    "shipping": 4,
+    "delivered": 5
+  };
+
+  int get currentStatus => allStatus[status]!;
+
+  OrderStatusWidget({
     super.key,
     required this.status,
     required this.isOverDue,
@@ -12,17 +22,42 @@ class OrderStatusWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _StatusDot(
-          isActive: true,
-          title: "Pedido Confirmado",
-        ),
-        _StatusDot(
-          isActive: false,
-          title: "Pedido Confirmado",
-        ),
+        const _StatusDot(isActive: true, title: "Pedido confirmado"),
+        const _CustomDivider(),
+        if (currentStatus == 1) ...[
+          const _StatusDot(
+            isActive: true,
+            title: "Pix estornado",
+            backgroundColor: Colors.orange,
+          ),
+        ] else if (isOverDue) ...[
+          const _StatusDot(
+            isActive: true,
+            title: "Pagamento Pix Vencido",
+            backgroundColor: Colors.red,
+          ),
+        ]
       ],
+    );
+  }
+}
+
+class _CustomDivider extends StatelessWidget {
+  const _CustomDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 3,
+      ),
+      height: 10,
+      width: 2,
+      color: Colors.grey.shade300,
     );
   }
 }
@@ -30,7 +65,12 @@ class OrderStatusWidget extends StatelessWidget {
 class _StatusDot extends StatelessWidget {
   final bool isActive;
   final String title;
-  const _StatusDot({required this.isActive, required this.title});
+  final Color? backgroundColor;
+  const _StatusDot({
+    required this.isActive,
+    required this.title,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +86,9 @@ class _StatusDot extends StatelessWidget {
             border: Border.all(
               color: CustomColors.customSwatchColor,
             ),
-            color:
-                isActive ? CustomColors.customSwatchColor : Colors.transparent,
+            color: isActive
+                ? backgroundColor ?? CustomColors.customSwatchColor
+                : Colors.transparent,
           ),
           child: isActive
               ? const Icon(
@@ -58,8 +99,16 @@ class _StatusDot extends StatelessWidget {
               : const SizedBox.shrink(),
         ),
 
+        const SizedBox(width: 5),
         // Texto
-        Expanded(child: Text(title))
+        Expanded(
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 12,
+            ),
+          ),
+        ),
       ],
     );
   }
