@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/models/cart_item_model.dart';
 import 'package:greengrocer/src/pages/cart/components/cart_tile.dart';
+import 'package:greengrocer/src/pages/common_widgets/payment_dialog.dart';
 import 'package:greengrocer/src/services/utils_services.dart';
 import 'package:greengrocer/src/config/app_data.dart' as app_data;
 
@@ -26,6 +27,15 @@ class _CartTabState extends State<CartTab> {
     }
 
     return total;
+  }
+
+  void showDialogPayment() {
+    showDialog(
+      context: context,
+      builder: (_) => PaymentDialog(
+        order: app_data.orders.first,
+      ),
+    );
   }
 
   Future<bool?> showOrderConfirmation() {
@@ -117,7 +127,11 @@ class _CartTabState extends State<CartTab> {
                         backgroundColor: CustomColors.customSwatchColor,
                       ),
                       onPressed: () async {
-                        final confirm = await showOrderConfirmation();
+                        final result = await showOrderConfirmation();
+
+                        if (result ?? false) {
+                          showDialogPayment();
+                        }
                       },
                       child: const Text(
                         "Concluir pedido",
