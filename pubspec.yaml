@@ -42,6 +42,7 @@ dependencies:
   add_to_cart_animation: ^2.0.3
   fluttertoast: ^8.2.4
   flutter_launcher_icons: ^0.13.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
